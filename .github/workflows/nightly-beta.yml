@@ -1,0 +1,20 @@
+name: nightly-beta
+
+# The demo fork keeps this manual to avoid scheduled Actions usage.
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  dispatch:
+    if: github.repository == 'anomalyco/opencode'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch beta test runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run check-test.yml --repo "$GITHUB_REPOSITORY" --ref beta
+          gh workflow run check-test.yml --repo "$GITHUB_REPOSITORY" --ref beta -f quarantine=true
