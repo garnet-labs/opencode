@@ -1,10 +1,7 @@
 name: nightly-beta
 
-# GitHub runs schedules only from the default branch (dev), so this fires once this file is on dev.
-# It tests beta with the full suite on both OSes, then runs beta's quarantined browser tests.
+# The demo fork keeps this manual to avoid scheduled Actions usage.
 on:
-  schedule:
-    - cron: "17 9 * * *"
   workflow_dispatch:
 
 permissions:

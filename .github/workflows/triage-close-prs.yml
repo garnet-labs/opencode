@@ -1,8 +1,7 @@
 name: triage-close-prs
 
 on:
-  schedule:
-    - cron: "0 22 * * *" # Daily at 10:00 PM UTC
+  # The demo fork keeps upstream maintenance workflows manual.
   workflow_dispatch:
     inputs:
       dry-run:

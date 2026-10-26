@@ -1,8 +1,7 @@
 name: triage-close-issues
 
 on:
-  schedule:
-    - cron: "0 2 * * *" # Daily at 2:00 AM
+  # The demo fork keeps upstream maintenance workflows manual.
   workflow_dispatch:
 
 jobs:

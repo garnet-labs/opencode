@@ -1,9 +1,7 @@
 name: triage-compliance-close
 
 on:
-  schedule:
-    # Run every 30 minutes to check for expired compliance windows
-    - cron: "*/30 * * * *"
+  # The demo fork keeps upstream maintenance workflows manual.
   workflow_dispatch:
 
 permissions:
