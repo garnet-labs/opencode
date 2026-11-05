@@ -318,16 +318,16 @@ export function planBunLockfile({root, file, kind, read}) {
     const data = readAt(d, 'package.json');
     if (data !== null) {
       const manager = JSON.parse(data).packageManager;
-      remainingAssert(manager === undefined || manager === 'bun@1.3.11',
+      remainingAssert(manager === undefined || manager === 'bun@1.4.4',
         'Bun version/manager requires an explicitly reviewed numeric version');
     }
   }
   if (pkg.packageManager === undefined && member.packageManager === undefined) {
-    // Source-backed fallback ONLY for the bounded 1.3.11 pin observed in this
+    // Source-backed fallback ONLY for the bounded 1.4.4 pin observed in this
     // repository's immutable CI, not a version inferred from @types/bun.
     const pin = read(root, '.github/workflows/agent-tarballs.yml', true) || '';
     const test = read(root, '.github/workflows/test.yml', true) || '';
-    remainingAssert(/bun-version:\s*["']1\.3\.11["']/.test(pin) &&
+    remainingAssert(/bun-version:\s*["']1\.4\.4["']/.test(pin) &&
       /uses:\s*oven-sh\/setup-bun@/.test(pin) && /run:\s*bun install\s*(?:\r?\n|$)/.test(test),
     'unversioned Bun project requires a reviewed CI version; no latest fallback');
   }
@@ -341,14 +341,14 @@ export function planBunLockfile({root, file, kind, read}) {
       // Bootstrap in /tmp, not the source directory: do not load project npm
       // config while acquiring the bounded runtime. Intended Bun/npm bootstrap
       // lifecycle is retained, and no credentials are forwarded by the wrapper.
-      "(cd /tmp && npm install --global --prefix /home/workload/bun-toolchain --registry https://registry.npmjs.org --no-audit --no-fund 'bun@1.3.11')",
+      "(cd /tmp && npm install --global --prefix /home/workload/bun-toolchain --registry https://registry.npmjs.org --no-audit --no-fund 'bun@1.4.4')",
       'export PATH="/home/workload/bun-toolchain/bin:$PATH"',
-      'test "$(bun --version)" = "1.3.11"',
+      'test "$(bun --version)" = "1.4.4"',
       'bun_lock_before="$(sha256sum bun.lock)"',
       'bun install --frozen-lockfile',
       'test "$bun_lock_before" = "$(sha256sum bun.lock)"',
     ],
-    note: 'Bun 1.3.11 verified against source CI/release and asserted at execution; true owning workspace root; frozen lock and byte-identity check; source-defined lifecycle/trustedDependencies retained (not force-trusted); no tests/build command; stricter immutable-install verification than upstream plain bun install; stale locks block here, not a claim upstream CI cannot regenerate its lock',
+    note: 'Bun 1.4.4 verified against source CI/release and asserted at execution; true owning workspace root; frozen lock and byte-identity check; source-defined lifecycle/trustedDependencies retained (not force-trusted); no tests/build command; stricter immutable-install verification than upstream plain bun install; stale locks block here, not a claim upstream CI cannot regenerate its lock',
   };
 }
 
