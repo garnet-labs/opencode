@@ -1,13 +1,10 @@
 name: Garnet Dependabot request
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_dispatch:
 permissions: {}
 jobs:
   request:
-    if: >-
-      github.event.pull_request.user.login == 'dependabot[bot]' &&
-      github.event.pull_request.head.repo.full_name == github.repository
+    if: false
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
